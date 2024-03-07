@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "app2.apps.App2Config",
     "django_celery_beat",
     "app3.apps.App3Config",
+    "django_celery_results",
 ]
 
 MIDDLEWARE = [
@@ -150,6 +151,16 @@ CELERY_BEAT_SCHEDULE = {
         "task":"app3.tasks.bkup",
         "schedule":5.0,
     },
+}
+
+CELERY_RESULT_BACKEND = 'django-db'
+
+CELERY_CACHE_BACKEND = 'default'
+CACHES = {
+    'default': {
+        'BACKEND':'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION':'cachedb',
+    }
 }
 
 """ crontab() Execute every minute.
